@@ -21,6 +21,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Page(models.Model):
     TITLE_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200
@@ -32,3 +33,15 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class UserProfile(models.Model):
+    #This line is required. Links UserProfile to a User Model instance.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    #The additional attributes we wish to inlcude, not provided by djangos own User model
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images',blank=True)
+
+    def __str__(self):
+        return self.user.username
